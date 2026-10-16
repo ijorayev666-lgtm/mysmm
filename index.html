@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MySMM — SMM platforma</title>
+<style>
+:root{--bg:#080d19;--panel:#111a2c;--line:#24324a;--text:#eef4ff;--muted:#9eacc5;--cyan:#25d2e8;--purple:#7664ff}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(145deg,#0b1427,#080d19 55%);font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:var(--text)}
+header{padding:20px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px;position:sticky;top:0;background:#0a1120f2;backdrop-filter:blur(10px)}
+.brand{font-size:22px;font-weight:850;letter-spacing:-.6px}.brand span{color:var(--cyan)}.pill{font-size:12px;color:#92f3d5;border:1px solid #245e5b;border-radius:99px;padding:6px 10px}
+main{max-width:900px;margin:auto;padding:22px 15px 50px}.hero{padding:25px 5px 20px}.eyebrow{color:var(--cyan);font-weight:700;font-size:13px;letter-spacing:1px;text-transform:uppercase}.hero h1{font-size:clamp(30px,7vw,48px);line-height:1.08;margin:10px 0 12px;letter-spacing:-1.4px}.hero p{color:var(--muted);line-height:1.6;max-width:600px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:20px 0}.stat,.card{background:#111a2c;border:1px solid var(--line);border-radius:17px;padding:14px}.stat strong{display:block;font-size:19px}.stat span{color:var(--muted);font-size:12px}.section-title{font-size:20px;margin:27px 0 12px}.services{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}.service-icon{font-size:24px}.service h3{margin:9px 0 5px}.service p{color:var(--muted);font-size:13px;line-height:1.5;min-height:38px}.price{font-weight:800;color:#75e8f4}.btn{border:0;border-radius:11px;background:linear-gradient(100deg,var(--cyan),var(--purple));color:#07101c;padding:12px 15px;font-weight:800;cursor:pointer;width:100%;margin-top:12px}.secondary{background:#18243a;color:var(--text);border:1px solid var(--line)}label{display:block;font-size:13px;color:#c4d0e5;margin:13px 0 6px}input,select,textarea{width:100%;border:1px solid #30415d;background:#0b1322;color:var(--text);border-radius:10px;padding:12px;font:inherit}small,.note{color:var(--muted);font-size:12px;line-height:1.5}.orders{display:grid;gap:9px}.order{padding:12px;border:1px solid var(--line);border-radius:12px;background:#0d1627}.order strong{display:block}.status{font-size:12px;color:#f6d27c}.notice{margin-top:17px;padding:12px 14px;border-radius:12px;border:1px solid #574b25;background:#211d12;color:#f1d995;font-size:12px;line-height:1.5}.footer{text-align:center;color:var(--muted);font-size:12px;margin-top:35px}
+</style>
+</head>
+<body>
+<header><div class="brand">My<span>SMM</span></div><div class="pill">BETA · demo</div></header>
+<main>
+<section class="hero">
+<div class="eyebrow">SMM boshqaruv paneli</div>
+<h1>Xizmatlaringizni<br><span style="color:var(--cyan)">bir joyda</span> boshqaring.</h1>
+<p>O‘z SMM platformangizning birinchi sinov versiyasi. Xizmat tanlang, buyurtma formasini to‘ldiring va buyurtmani demo ro‘yxatida ko‘ring.</p>
+</section>
+<div class="stats">
+<div class="stat"><strong id="serviceCount">3</strong><span>Xizmatlar</span></div>
+<div class="stat"><strong id="orderCount">0</strong><span>Demo buyurtmalar</span></div>
+<div class="stat"><strong>UZS</strong><span>Hisob valyutasi</span></div>
+</div>
+<h2 class="section-title">Xizmatlar</h2>
+<div class="services" id="services"></div>
+<h2 class="section-title" id="formTitle">Buyurtma yaratish</h2>
+<section class="card">
+<form id="orderForm">
+<label for="service">Xizmat</label><select id="service" required></select>
+<label for="link">Profil yoki post havolasi</label><input id="link" type="url" placeholder="https://..." required>
+<label for="quantity">Miqdor</label><input id="quantity" type="number" min="1" max="100000" value="100" required>
+<label for="email">Aloqa uchun email (ixtiyoriy)</label><input id="email" type="email" placeholder="email@example.com">
+<p class="note">Hozircha bu demo: haqiqiy buyurtma yuborilmaydi va to‘lov olinmaydi.</p>
+<button class="btn" type="submit">Demo buyurtma yaratish</button>
+</form>
+</section>
+<h2 class="section-title">Oxirgi buyurtmalar</h2>
+<div class="orders" id="orders"><div class="order note">Hozircha buyurtmalar yo‘q. Sinab ko‘rish uchun yuqoridagi formani to‘ldiring.</div></div>
+<div class="notice"><strong>API xavfsizligi:</strong> bu versiyada provayder API kaliti yo‘q. Haqiqiy API kalitini HTML/JavaScript ichiga yozmang — keyingi bosqichda uni server tomonda maxfiy saqlaydigan backend ulaymiz. Faqat ruxsat etilgan va platforma qoidalariga mos xizmatlardan foydalaning.</div>
+<div class="footer">MySMM demo · Birinchi MVP · Keyin backend, admin panel va API qo‘shiladi</div>
+</main>
+<script>
+const services=[
+{id:'ig-like',icon:'❤️',name:'Instagram layk',desc:'Postlar uchun buyurtma formasi (demo).',price:1200,unit:'100 dona uchun'},
+{id:'ig-comment',icon:'💬',name:'Instagram komment',desc:'Komment xizmatini demo tarzida ko‘rsatish.',price:3500,unit:'10 ta uchun'},
+{id:'tg-channel',icon:'✈️',name:'Telegram kanal',desc:'Kanal xizmatlari uchun demo katalog.',price:2000,unit:'100 dona uchun'}
+];
+const fmt=n=>new Intl.NumberFormat('uz-UZ').format(n)+' so‘m';
+const servicesEl=document.getElementById('services'),select=document.getElementById('service');
+services.forEach(s=>{
+ const article=document.createElement('article');article.className='card service';
+ article.innerHTML=`<div class="service-icon">${s.icon}</div><h3>${s.name}</h3><p>${s.desc}</p><div class="price">${fmt(s.price)} <small>/ ${s.unit}</small></div><button class="btn secondary" type="button" data-id="${s.id}">Tanlash</button>`;
+ servicesEl.appendChild(article);
+ const opt=document.createElement('option');opt.value=s.id;opt.textContent=s.name;select.appendChild(opt);
+});
+servicesEl.addEventListener('click',e=>{const b=e.target.closest('button[data-id]');if(b){select.value=b.dataset.id;document.getElementById('formTitle').scrollIntoView({behavior:'smooth'});}});
+function getOrders(){try{return JSON.parse(localStorage.getItem('mysmm-orders')||'[]')}catch{return []}}
+function saveOrders(orders){localStorage.setItem('mysmm-orders',JSON.stringify(orders))}
+function renderOrders(){
+ const orders=getOrders();document.getElementById('orderCount').textContent=orders.length;
+ const root=document.getElementById('orders');root.replaceChildren();
+ if(!orders.length){const empty=document.createElement('div');empty.className='order note';empty.textContent='Hozircha buyurtmalar yo‘q. Sinab ko‘rish uchun yuqoridagi formani to‘ldiring.';root.appendChild(empty);return}
+ orders.slice().reverse().forEach(o=>{const el=document.createElement('div');el.className='order';const strong=document.createElement('strong');strong.textContent=o.service+' · '+o.quantity+' dona';const link=document.createElement('div');link.className='note';link.textContent=o.link;const status=document.createElement('div');status.className='status';status.textContent='Demo — provayderga yuborilmagan';el.append(strong,link,status);root.appendChild(el)});
+}
+document.getElementById('orderForm').addEventListener('submit',e=>{
+ e.preventDefault();const s=services.find(x=>x.id===select.value);const link=document.getElementById('link').value.trim();const quantity=Number(document.getElementById('quantity').value);
+ if(!s||!/^https?:\/\//i.test(link)||!Number.isFinite(quantity)||quantity<1){alert('Xizmat, to‘g‘ri havola va miqdorni tekshiring.');return}
+ const orders=getOrders();orders.push({id:Date.now(),service:s.name,link,quantity,createdAt:new Date().toISOString()});saveOrders(orders);e.target.reset();document.getElementById('quantity').value=100;renderOrders();alert('Demo buyurtma saqlandi. Bu haqiqiy xizmat buyurtmasi emas.');
+});
+renderOrders();
+</script>
+</body>
+</html>
